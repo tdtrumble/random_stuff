@@ -15,7 +15,7 @@
 --- a/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py
 +++ b/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py
 @@ -7,8 +7,12 @@
-
+ 
  from dynamicprompts.wildcards import WildcardManager
 -from modules import script_callbacks
 -from modules.generation_parameters_copypaste import parse_generation_parameters
@@ -25,8 +25,9 @@
 +except ImportError:
 +    from modules import generation_parameters_copypaste
  from modules.script_callbacks import ImageSaveParams
-
-@@ -33,14 +37,14 @@
+ 
+ from sd_dynamic_prompts.pnginfo_saver import strip_template_info
+@@ -33,15 +37,15 @@
      def on_infotext_pasted(infotext: str, parameters: dict[str, Any]) -> None:
          new_parameters = {}
          if "Prompt" in parameters and "Template:" in parameters["Prompt"]:
