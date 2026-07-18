@@ -1,10 +1,10 @@
 # Instructions
 #
-# Save this file as forge_callbacks_compat.patch.
+# Save this the file to the root of your Forge repository
 #
-# From the root of your Forge repository, apply it with:
+# Apply it with:
 #
-#   git apply forge_callbacks_compat.patch
+#   git apply 0_forge_neo_dynamic_prompts.patch
 #
 # If the patch applies successfully, git will produce no output.
 # If it fails, ensure you're running the command from the repository root.
