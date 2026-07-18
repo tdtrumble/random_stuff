@@ -12,9 +12,12 @@
 # To verify:
 #   git diff
 #
+diff --git a/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py b/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py
+index 1f54f29..557033c 100644
 --- a/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py
 +++ b/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py
-@@ -7,8 +7,12 @@
+@@ -5,8 +5,11 @@ from pathlib import Path
+ from typing import Any
  
  from dynamicprompts.wildcards import WildcardManager
 -from modules import script_callbacks
@@ -27,8 +30,7 @@
  from modules.script_callbacks import ImageSaveParams
  
  from sd_dynamic_prompts.pnginfo_saver import strip_template_info
-@@ -33,15 +37,15 @@
-     def on_infotext_pasted(infotext: str, parameters: dict[str, Any]) -> None:
+@@ -31,13 +34,13 @@ def register_on_infotext_pasted() -> None:
          new_parameters = {}
          if "Prompt" in parameters and "Template:" in parameters["Prompt"]:
              strip_template_info(parameters)
