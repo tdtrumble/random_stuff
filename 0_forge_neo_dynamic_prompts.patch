@@ -1,0 +1,45 @@
+# Instructions
+#
+# Save this file as forge_callbacks_compat.patch.
+#
+# From the root of your Forge repository, apply it with:
+#
+#   git apply forge_callbacks_compat.patch
+#
+# If the patch applies successfully, git will produce no output.
+# If it fails, ensure you're running the command from the repository root.
+#
+# To verify:
+#   git diff
+#
+--- a/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py
++++ b/extensions/sd-dynamic-prompts/sd_dynamic_prompts/callbacks.py
+@@ -7,8 +7,12 @@
+
+ from dynamicprompts.wildcards import WildcardManager
+-from modules import script_callbacks
+-from modules.generation_parameters_copypaste import parse_generation_parameters
++from modules import script_callbacks, shared
++try:
++    from modules import infotext_utils as generation_parameters_copypaste
++except ImportError:
++    from modules import generation_parameters_copypaste
+ from modules.script_callbacks import ImageSaveParams
+
+@@ -33,14 +37,14 @@
+     def on_infotext_pasted(infotext: str, parameters: dict[str, Any]) -> None:
+         new_parameters = {}
+         if "Prompt" in parameters and "Template:" in parameters["Prompt"]:
+             strip_template_info(parameters)
+-            new_parameters = parse_generation_parameters(parameters["Prompt"])
++            new_parameters = generation_parameters_copypaste.parse_generation_parameters(parameters["Prompt"])
+         elif (
+             "Negative prompt" in parameters
+             and "Template:" in parameters["Negative prompt"]
+         ):
+             strip_template_info(parameters)
+-            new_parameters = parse_generation_parameters(parameters["Negative prompt"])
++            new_parameters = generation_parameters_copypaste.parse_generation_parameters(parameters["Negative prompt"])
+             new_parameters["Negative prompt"] = new_parameters["Prompt"]
+             new_parameters["Prompt"] = parameters["Prompt"]
+         parameters.update(new_parameters)
